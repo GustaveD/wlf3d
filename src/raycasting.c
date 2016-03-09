@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/05 16:40:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/05 17:40:46 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/09 18:01:50 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ static void		ft_draw_buff(t_env *e)
 	if (e->rc->drawEnd >= WIN_HEIGHT)
 		e->rc->drawEnd = WIN_HEIGHT - 1;
 
+	e->textid = worldMap[e->rc->mapY][e->rc->mapX];
+	draw_text(e);
+/*
 	t_color color;
 	choose_color(&color, 0, 144, 133);
 	switch(worldMap[e->rc->mapX][e->rc->mapX])
@@ -45,7 +48,7 @@ static void		ft_draw_buff(t_env *e)
 	start->y = e->rc->drawStart;
 	end->x =e->rc-> x;
 	end->y = e->rc->drawEnd;
-	img_put_vline(e, start, end, colorr);
+	img_put_vline(e, start, end, colorr);*/
 }
 
 static void		ft_dda(t_env *e)
@@ -113,5 +116,6 @@ void	ft_raycasting(t_env *e)
 			e->rc->sideDistY = (e->rc->mapY + 1.0 - e->rc->rayPosY) * e->rc->deltaDistY;
 		ft_dda(e);
 		ft_draw_buff(e);
+		ft_direction_floor(e);
 	}
 }

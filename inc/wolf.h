@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:13:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/05 17:30:23 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/09 17:33:25 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 # define WIN_WIDTH 640
 # define WIN_HEIGHT 480
+# define TEXT_WIDTH 64
+# define TEXT_HEIGHT 64
 
 # define map_width 24
 # define map_height 24
@@ -79,16 +81,18 @@ typedef struct	s_color
 
 typedef struct	s_img
 {
-	void		*data;
+	char		*data;
 	int			bpp;
 	int			sizeline;
 	int			bits;
-	int			iendian;
+	int			endian;
+
 }				t_img;
 
 typedef	struct	s_raycast
 {
 	int			x;
+	int			y;
 	double		cameraX;
 	double		rayPosX;
 	double		rayPosY;
@@ -108,8 +112,28 @@ typedef	struct	s_raycast
 	int			lineHeight;
 	int			drawStart;
 	int			drawEnd;
+	double		wallX;
+	int			texX;
+	int			texY;
+	int			i;
 
 }				t_raycast;
+
+typedef	struct	s_floor
+{
+	double		fxwall;
+	double		fywall;
+	double		distwall;
+	double		distplayer;
+	double		currdist;
+	double		weight;
+	double		currfloorx;
+	double		currfloory;
+	int			ftextx;
+	int			ftexty;
+	int			chekbrdpattrn;
+	
+}				t_floor;
 
 typedef struct	s_env
 {
@@ -127,7 +151,10 @@ typedef struct	s_env
 	int			buffer[WIN_WIDTH][WIN_HEIGHT];
 	t_raycast	*rc;
 	t_img		**texture;
+	t_floor		*fl;
+	int			textid;
 	t_player	*p;
+	char		*colorstr;
 }				t_env;
 
 int				mouse_event(int button, int x, int y, t_env *e);
@@ -139,5 +166,15 @@ void			choose_color(t_color *color, int r, int g, int b);
 void			fill_img(t_env *env, int color);
 void			img_put_vline(t_env *e, t_vertex *v1, t_vertex *v2, int color);
 void			ft_raycasting(t_env *e);
+void			get_text(t_env *e);
+void			draw_text(t_env *e);
+void			set_text(t_env *e, double y);
+
+void			ft_direction_floor(t_env *e);
+void			ft_floor_to_img(t_env *e, int x, int y);
+void			ft_draw_floor(t_env *e);
+
+int				expose_hook(t_env *e);
+int				loop_hook(t_env *e);
 
 #endif
