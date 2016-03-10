@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:10:59 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/09 18:01:49 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/10 11:04:01 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ static void ft_create_texture(t_env *e)
 		e->texture[i] = (t_img*)malloc(sizeof(t_img));
 		i++;
 	}
-	e->texture[0]->data = mlx_xpm_file_to_image(e->mlx, "img/mossy.XPM", &lar, &lon);
-	e->texture[1]->data = mlx_xpm_file_to_image(e->mlx, "img/eagle.XPM", &lar, &lon);
-	e->texture[2]->data = mlx_xpm_file_to_image(e->mlx, "img/redbrick.XPM", &lar, &lon);
-	e->texture[3]->data = mlx_xpm_file_to_image(e->mlx, "img/purplestone.XPM", &lar, &lon);
-	e->texture[4]->data = mlx_xpm_file_to_image(e->mlx, "img/purplestone.XPM", &lar, &lon);
-	e->texture[5]->data = mlx_xpm_file_to_image(e->mlx, "img/wood.XPM", &lar, &lon);
+	e->texture[0]->data = mlx_xpm_file_to_image(e->mlx, "img/text/mossy.XPM", &lar, &lon);
+	e->texture[1]->data = mlx_xpm_file_to_image(e->mlx, "img/text/eagle.XPM", &lar, &lon);
+	e->texture[2]->data = mlx_xpm_file_to_image(e->mlx, "img/text/redbrick.XPM", &lar, &lon);
+	e->texture[3]->data = mlx_xpm_file_to_image(e->mlx, "img/text/purplestone.XPM", &lar, &lon);
+	e->texture[4]->data = mlx_xpm_file_to_image(e->mlx, "img/text/purplestone.XPM", &lar, &lon);
+	e->texture[5]->data = mlx_xpm_file_to_image(e->mlx, "img/text/wood.XPM", &lar, &lon);
 	init_texture(e);
 }
 

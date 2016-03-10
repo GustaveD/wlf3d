@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:13:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/09 17:33:25 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/10 10:57:45 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,14 @@ typedef struct	s_color
 	int			g;
 	int			b;
 }				t_color;
+
+typedef struct	s_sprite
+{
+	double		x;
+	double		y;
+	int			texture;
+
+}				t_sprite;
 
 typedef struct	s_img
 {
@@ -154,7 +162,7 @@ typedef struct	s_env
 	t_floor		*fl;
 	int			textid;
 	t_player	*p;
-	char		*colorstr;
+	double		zbuffer[WIN_WIDTH];
 }				t_env;
 
 int				mouse_event(int button, int x, int y, t_env *e);

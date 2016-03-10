@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 13:37:50 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/09 15:47:12 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/10 10:43:46 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		loop_hook(t_env *e)
 
 int		keyboard_event(int keycode, t_env *e)
 {
+	//printf("keycode =- %d\n", keycode);
 	if (keycode == KEYCODE_EXIT)
 		exit(EXIT_SUCCESS);
 	if (keycode == 126)
@@ -44,7 +45,6 @@ int		keyboard_event(int keycode, t_env *e)
 			PPOSX += PDIRX * PMOVS;
 		if (!(worldMap[(int)(PPOSX)][(int)(PPOSY + PDIRY * PMOVS)]))
 			PPOSY += PDIRY * PMOVS;
-
 	}
 	if (keycode == 123)
 	{
