@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/05 16:40:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/09 18:01:50 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/11 17:00:48 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ void	ft_raycasting(t_env *e)
 			e->rc->sideDistY = (e->rc->mapY + 1.0 - e->rc->rayPosY) * e->rc->deltaDistY;
 		ft_dda(e);
 		ft_draw_buff(e);
+		e->zbuffer[e->rc->x] = e->rc->perpWallDist;
 		ft_direction_floor(e);
+		sprite_cast(e, NBSPRITE);
 	}
 }

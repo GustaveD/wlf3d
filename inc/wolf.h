@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:13:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/10 10:57:45 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/11 15:43:06 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 # define map_width 24
 # define map_height 24
 
-# define texture_width 64
-# define texture_height 64
 
 # define KEYCODE_EXIT 53
 
@@ -52,7 +50,7 @@
 # define YELLOW 0xcccc00
 # define WHITE 0xffffff
 # define RED 0xff0000
-
+# define NBSPRITE 5
 
 extern int	worldMap[map_width][map_height];
 extern int	worldMap2[map_width][map_height];
@@ -79,14 +77,6 @@ typedef struct	s_color
 	int			b;
 }				t_color;
 
-typedef struct	s_sprite
-{
-	double		x;
-	double		y;
-	int			texture;
-
-}				t_sprite;
-
 typedef struct	s_img
 {
 	char		*data;
@@ -96,6 +86,14 @@ typedef struct	s_img
 	int			endian;
 
 }				t_img;
+
+typedef struct	s_sprite
+{
+	double		x;
+	double		y;
+	int			texture;
+	t_img		*img;
+}				t_sprite;
 
 typedef	struct	s_raycast
 {
@@ -124,6 +122,18 @@ typedef	struct	s_raycast
 	int			texX;
 	int			texY;
 	int			i;
+	double		s_x;
+	double		s_y;
+	double		invdet;
+	double		transf_x;
+	double		transf_y;
+	int			s_screenx;
+	int			s_height;
+	int			s_width;
+	int			dstartx;
+	int			dstarty;
+	int			dendy;
+	int			dendx;
 
 }				t_raycast;
 
@@ -162,7 +172,9 @@ typedef struct	s_env
 	t_floor		*fl;
 	int			textid;
 	t_player	*p;
+	t_sprite	**sprite;
 	double		zbuffer[WIN_WIDTH];
+	double		*sprite_distance;
 }				t_env;
 
 int				mouse_event(int button, int x, int y, t_env *e);
@@ -184,5 +196,8 @@ void			ft_draw_floor(t_env *e);
 
 int				expose_hook(t_env *e);
 int				loop_hook(t_env *e);
+
+void			sprite_cast(t_env *e, int nb);
+void			comb_sort(int *order, double *dist, int amount);
 
 #endif

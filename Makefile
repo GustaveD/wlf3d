@@ -6,7 +6,7 @@
 #    By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/02 12:17:28 by jrosamon          #+#    #+#              #
-#    Updated: 2016/03/09 17:06:47 by jrosamon         ###   ########.fr        #
+#    Updated: 2016/03/11 14:30:33 by jrosamon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ SOURCES = src/main.c \
 		  src/img.c\
 		  src/raycasting.c\
 		  src/texture.c\
-		  src/floor.c
+		  src/floor.c\
+		  src/comb.c\
+		  src/sprite.c
 
 INCLUDES = inc/
 
