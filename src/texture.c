@@ -6,64 +6,92 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 11:33:46 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/09 18:01:51 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/15 10:19:45 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
-void		set_text(t_env *e, double y)
+void		init_texture(t_env *e)
 {
+	int i;
 
-	e->rc->i = (int)((e->bpp >> 3) * ((ceil(e->rc->y) * (e->isizeline >> 2))
-				+ (int)(e->rc->x)));
-	e->idata[e->rc->i + 0] = e->texture[e->textid]->data[(e->texture[e->textid]->bpp >> 3) *
-							((int)(y) * e->texture[e->textid]->sizeline >> 2) +
-							e->rc->texX + 0];
-	e->idata[e->rc->i + 1] = e->texture[e->textid]->data[(e->texture[e->textid]->bpp >> 3) *
-							((int)(y) * e->texture[e->textid]->sizeline >> 2) +
-							e->rc->texX + 1];
-	e->idata[e->rc->i + 2] = e->texture[e->textid]->data[(e->texture[e->textid]->bpp >> 3) *
-							((int)(y) * e->texture[e->textid]->sizeline >> 2) +
-							e->rc->texX + 2];
+	i = 0;
+	while (i < 6)
+	{
+		TEXT[i]->data = mlx_get_data_addr(TEXT[i]->data, &TEXT[i]->bpp,
+												&TEXT[i]->sizeline,
+												&TEXT[i]->endian);
+		i++;
+	}
+}
+
+void		ft_create_texture(t_env *e)
+{
+	int i;
+	int	lar;
+	int	lon;
+
+	i = 0;
+	TEXT = (t_img**)malloc(sizeof(t_img) * 6);
+	while (i < 6)
+	{
+		TEXT[i] = (t_img*)malloc(sizeof(t_img));
+		i++;
+	}
+	TEXT[0]->data =
+		mlx_xpm_file_to_image(e->mlx, "img/text/stone1.xpm", &lar, &lon);
+	TEXT[0]->wdth = lon;
+	TEXT[0]->hght = lar;
+	TEXT[1]->data =
+		mlx_xpm_file_to_image(e->mlx, "img/text/redbrick.XPM", &lar, &lon);
+	TEXT[1]->wdth = lon;
+	TEXT[1]->hght = lar;
+	TEXT[2]->data =
+		mlx_xpm_file_to_image(e->mlx, "img/text/stone3.xpm", &lar, &lon);
+	TEXT[2]->wdth = lon;
+	TEXT[2]->hght = lar;
+	TEXT[3]->data =
+		mlx_xpm_file_to_image(e->mlx, "img/text/stone4.xpm", &lar, &lon);
+	TEXT[4]->data =
+		mlx_xpm_file_to_image(e->mlx, "img/text/stone5.xpm", &lar, &lon);
+	TEXT[4]->wdth = lon;
+	TEXT[4]->hght = lar;
+	TEXT[5]->data =
+		mlx_xpm_file_to_image(e->mlx, "img/text/wood.XPM", &lar, &lon);
+	TEXT[5]->wdth = lon;
+	TEXT[5]->hght = lar;
+	init_texture(e);
 }
 
 void		get_text(t_env *e)
 {
-	if (e->rc->side == 0)
-		e->rc->wallX = e->rc->rayPosY + e->rc->perpWallDist * e->rc->rayDirY;
+	if (RC->side == 0)
+		RC->wallX = RC->rayPosY + RC->perpWallDist * RC->rayDirY;
 	else
-		e->rc->wallX = e->rc->rayPosX + e->rc->perpWallDist * e->rc->rayDirX;
-
-	e->rc->wallX -= floor(e->rc->wallX);
-	e->rc->texX = (int)(e->rc->wallX * (double)(TEXT_WIDTH));
-	if (e->rc->side == 0 && e->rc->rayDirX > 0)
-		e->rc->texX = TEXT_WIDTH - e->rc->texX - 1;
-	else if (e->rc->side == 1 && e->rc->rayDirY < 0)
-		e->rc->texX = TEXT_WIDTH - e->rc->texX -1;
+		RC->wallX = RC->rayPosX + RC->perpWallDist * RC->rayDirX;
+	RC->wallX -= floor(RC->wallX);
+	RC->texX = (int)(RC->wallX * (double)(TEXT[e->textid]->wdth));
+	if (RC->side == 0 && RC->rayDirX > 0)
+		RC->texX = TEXT[e->textid]->wdth - RC->texX - 1;
+	else if (RC->side == 1 && RC->rayDirY < 0)
+		RC->texX = TEXT[e->textid]->wdth - RC->texX - 1;
 }
 
-void		draw_text(t_env *e)
+void		draw_text_2(t_env *e)
 {
-	
 	int		d;
-	int		i;
-	int		tmp;
-
+	int		color;
 	get_text(e);
-	e->rc->y = (double)(e->rc->drawStart);
-	while (e->rc->y <= e->rc->drawEnd)
+	RC->y = (double)(RC->drawStart);
+	while (RC->y <= RC->drawEnd)
 	{
-		d = e->rc->y * 256 - WIN_HEIGHT * 128 + e->rc->lineHeight * 128;
-		e->rc->texY = ((d * TEXT_HEIGHT) / e->rc->lineHeight) / 256;
-		i = e->rc->x * (e->bpp / 8) + e->rc->y * e->isizeline;
-		tmp = e->rc->texX * (e->texture[e->textid]->bpp / 8) + e->rc->texY *
-								e->texture[e->textid]->sizeline;
-		e->idata[i] = e->texture[e->textid]->data[tmp];
-		e->idata[i + 1] = e->texture[e->textid]->data[tmp + 1];
-		e->idata[i + 2] = e->texture[e->textid]->data[tmp + 2];
-		e->idata[i + 3] = 1;
-		e->rc->y++;
+		d = RC->y * 2 - WIN_HEIGHT + RC->lineHeight;
+		RC->texY = ((d * TEXT[e->textid]->hght / 2) / RC->lineHeight);
+		color = *((unsigned int*)(TEXT[e->textid]->data + (TEXT[e->textid]->wdth * RC->texY * 4 + RC->texX * 4)));
+		if (RC->side == 1)
+			color = (color >> 1) & 8355711;
+		img_put_pixel(e, RC->x, RC->y, color);
+		RC->y++;
 	}
 }
-

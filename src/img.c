@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 17:00:11 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/05 15:39:15 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/14 12:59:36 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,6 @@ void		img_put_pixel(t_env *env, int x, int y, int color)
 	bpp_div = env->bpp / 8 / 4;
 	udata[sl_div * y + bpp_div * x] = color;
 	return ;
-}
-
-void	img_put_vline(t_env *env, t_vertex *v1, t_vertex *v2, int color)
-{
-	int i;
-	
-	//printf("color = %d\n", color);
-	i = v1->y;	
-	while (i < v2->y)
-	{
-		img_put_pixel(env, v1->x + ((v2->x - v1->x) *
-			(i - v1->y)) / (v2->y - v1->y), i, color);
-		i++;
-	}
 }
 
 void		fill_img(t_env *env, int color)

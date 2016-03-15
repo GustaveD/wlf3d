@@ -6,37 +6,63 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:17:56 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/11 16:58:05 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/14 16:36:50 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
-static void	ft_sprite_init(t_env *e, int *sprite_order, int i)
+void			ft_create_sprites(t_env *e)
 {
-	e->rc->s_x = e->sprite[sprite_order[i]]->x - PPOSX;
-	e->rc->s_y = e->sprite[sprite_order[i]]->y - PPOSY;
-	e->rc->invdet = 1.0 / (PPLANEX * PDIRY - PDIRX * PPLANEY);
-	e->rc->transf_x = e->rc->invdet * (PDIRY * e->rc->s_x - PDIRX * e->rc->s_y);
-	e->rc->transf_y = e->rc->invdet * (-(PPLANEY) * e->rc->s_x + PPLANEX * e->rc->s_y);
-	e->rc->s_screenx = (int)((WIN_WIDTH / 2) * (1 + e->rc->transf_x / e->rc->transf_y));
-	e->rc->s_height = abs((int)(WIN_HEIGHT / e->rc->transf_y));
-	e->rc->dstarty = -(e->rc->s_height) / 2 + WIN_HEIGHT / 2;
-	if (e->rc->dstarty < 0)
-		e->rc->dstarty = 0;
-	e->rc->dendy = e->rc->s_height / 2 + WIN_HEIGHT / 2;
-	if (e->rc->dendy >= WIN_HEIGHT)
-		e->rc->dendy = WIN_HEIGHT - 1;
-	e->rc->s_width = abs((int)(WIN_HEIGHT / e->rc->transf_y));
-	e->rc->dstartx = -(e->rc->s_width) / 2 + e->rc->s_screenx;
-	if (e->rc->dstartx < 0)
-		e->rc->dstartx = 0;
-	e->rc->dendx = e->rc->s_width / 2 + e->rc->s_screenx;
-	if (e->rc->dendx >= WIN_WIDTH)
-		e->rc->dendx = WIN_WIDTH - 1;	
+	int i;
+	int la;
+	int lo;
+
+	i = 0;
+	if (!(e->sprite = (t_sprite**)malloc(sizeof(t_sprite) * NBSPRITE)))
+		exit(EXIT_FAILURE);
+	while (i < NBSPRITE)
+	{
+		if (!(e->sprite[i] = (t_sprite*)malloc(sizeof(t_sprite))))
+			exit(EXIT_FAILURE);
+		if (!(e->sprite[i]->img = (t_img*)malloc(sizeof(t_img))))
+			exit(EXIT_FAILURE);
+		e->sprite[i]->img->data =
+			mlx_xpm_file_to_image(e->mlx, "img/sprite/policeman.xpm", &la, &lo);
+		e->sprite[i]->img->data =
+			mlx_get_data_addr(e->sprite[i]->img->data, &e->sprite[i]->img->bpp,
+												&e->sprite[i]->img->sizeline,
+												&e->sprite[i]->img->endian);
+		i++;
+	}
+	ft_init_sprites(e);
 }
 
-static int	*ft_order(t_env *e, int nb)
+static void		ft_sprite_init(t_env *e, int *sprite_order, int i)
+{
+	RC->s_x = e->sprite[sprite_order[i]]->x - PPOSX;
+	RC->s_y = e->sprite[sprite_order[i]]->y - PPOSY;
+	RC->invdet = 1.0 / (PPLANEX * PDIRY - PDIRX * PPLANEY);
+	RC->transf_x = RC->invdet * (PDIRY * RC->s_x - PDIRX * RC->s_y);
+	RC->transf_y = RC->invdet * (-(PPLANEY) * RC->s_x + PPLANEX * RC->s_y);
+	RC->s_screenx = (int)((WIN_WIDTH / 2) * (1 + RC->transf_x / RC->transf_y));
+	RC->s_height = abs((int)(WIN_HEIGHT / RC->transf_y));
+	RC->dstarty = -(RC->s_height) / 2 + WIN_HEIGHT / 2;
+	if (RC->dstarty < 0)
+		RC->dstarty = 0;
+	RC->dendy = RC->s_height / 2 + WIN_HEIGHT / 2;
+	if (RC->dendy >= WIN_HEIGHT)
+		RC->dendy = WIN_HEIGHT - 1;
+	RC->s_width = abs((int)(WIN_HEIGHT / RC->transf_y));
+	RC->dstartx = -(RC->s_width) / 2 + RC->s_screenx;
+	if (RC->dstartx < 0)
+		RC->dstartx = 0;
+	RC->dendx = RC->s_width / 2 + RC->s_screenx;
+	if (RC->dendx >= WIN_WIDTH)
+		RC->dendx = WIN_WIDTH - 1;
+}
+
+static int		*ft_order(t_env *e, int nb)
 {
 	int		i;
 	int		*sprite_order;
@@ -56,29 +82,24 @@ static int	*ft_order(t_env *e, int nb)
 	return (sprite_order);
 }
 
-static void	ft_stripe_draw(t_env *e, int *sprite_order, int i, int stripe)
+static void		ft_stripe_draw(t_env *e, int *sprite_order, int i, int stripe)
 {
-	int		tmp;
 	int		d;
-	int 	color;
+	int		color;
 
-	e->rc->y = e->rc->dstarty;
-	while (e->rc->y < e->rc->dendy)
+	RC->y = RC->dstarty;
+	while (RC->y < RC->dendy)
 	{
-		d = (e->rc->y) * 256 - WIN_HEIGHT * 128 + e->rc->s_height * 128;
-		e->rc->texY = ((d * TEXT_HEIGHT) / e->rc->s_height) / 256;
-		color = stripe * (e->bpp / 8) + e->rc->y * e->isizeline;
-		tmp = e->rc->texX * (e->sprite[sprite_order[i]]->img->bpp / 8) + e->rc->texY *
-								e->sprite[sprite_order[i]]->img->sizeline;
-		e->idata[color] = e->sprite[sprite_order[i]]->img->data[tmp];
-		e->idata[color + 1] = e->sprite[sprite_order[i]]->img->data[tmp + 1];
-		e->idata[color + 2] = e->sprite[sprite_order[i]]->img->data[tmp + 2];
-		e->idata[color + 3] = 1;
-		e->rc->y++;
+		d = (RC->y) * 256 - WIN_HEIGHT * 128 + RC->s_height * 128;
+		RC->texY = ((d * TEXT_HEIGHT) / RC->s_height) / 256;
+		color = *((unsigned int*)(e->sprite[sprite_order[i]]->img->data + (TEXT_WIDTH + RC->texY * 4 +
+						RC->texX * 4)));
+		img_put_pixel(e, stripe, RC->y, color);
+		RC->y++;
 	}
 }
 
-void		sprite_cast(t_env *e, int nb)
+void			sprite_cast(t_env *e, int nb)
 {
 	int		i;
 	int		stripe;
@@ -89,15 +110,15 @@ void		sprite_cast(t_env *e, int nb)
 	while (i < nb)
 	{
 		ft_sprite_init(e, sprite_order, i);
-		stripe = e->rc->dstartx;
-		while (stripe < e->rc->dendx)
+		stripe = RC->dstartx;
+		while (stripe < RC->dendx)
 		{
-			e->rc->texX = (int)(256 * (stripe - (e->rc->s_screenx - e->rc->s_width / 2))
-										* TEXT_WIDTH / e->rc->s_height / 256);
-			if (e->rc->transf_y > 0 && stripe > 0 && stripe < WIN_WIDTH && 
-					e->rc->transf_y < e->zbuffer[stripe])
+			RC->texX = (int)(256 * (stripe - (RC->s_screenx - RC->s_width / 2))
+										* TEXT_WIDTH / RC->s_height / 256);
+			if (RC->transf_y > 0 && stripe > 0 && stripe < WIN_WIDTH &&
+					RC->transf_y < e->zbuffer[stripe])
 				ft_stripe_draw(e, sprite_order, i, stripe);
-			stripe++;	
+			stripe++;
 		}
 		i++;
 	}

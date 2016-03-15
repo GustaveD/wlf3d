@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:13:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/11 15:43:06 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/14 13:44:55 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <stdio.h>
 # include "mlx.h"
 # include "libft.h"
 # include "stdio.h"
@@ -30,7 +34,6 @@
 # define map_width 24
 # define map_height 24
 
-
 # define KEYCODE_EXIT 53
 
 # define PPOSX e->p->pos->x
@@ -41,6 +44,9 @@
 # define PPLANEY e->p->plane->y
 # define PROTS e->p->rt_speed
 # define PMOVS e->p->mv_speed
+# define RC e->rc
+# define FL e->fl
+# define TEXT e->texture
 
 # define BLUE 0x0000cc
 # define GREEN 0x00cc00
@@ -84,6 +90,8 @@ typedef struct	s_img
 	int			sizeline;
 	int			bits;
 	int			endian;
+	int			hght;
+	int			wdth;
 
 }				t_img;
 
@@ -159,6 +167,7 @@ typedef struct	s_env
 	void		*win;
 	void		*img;
 	char		*idata;
+	int			**map;
 	int			bpp;
 	int			isizeline;
 	int			iendian;
@@ -186,18 +195,33 @@ void			choose_color(t_color *color, int r, int g, int b);
 void			fill_img(t_env *env, int color);
 void			img_put_vline(t_env *e, t_vertex *v1, t_vertex *v2, int color);
 void			ft_raycasting(t_env *e);
+
+void			ft_create_map(t_env *e, int fd);
+void			ft_map(t_env *e, int fd);
+
+void			init_texture(t_env *e);
+void			ft_create_texture(t_env *e);
 void			get_text(t_env *e);
 void			draw_text(t_env *e);
+void			draw_text_2(t_env *e);
 void			set_text(t_env *e, double y);
 
+void			ft_create_floor(t_env *e);
 void			ft_direction_floor(t_env *e);
 void			ft_floor_to_img(t_env *e, int x, int y);
 void			ft_draw_floor(t_env *e);
 
 int				expose_hook(t_env *e);
 int				loop_hook(t_env *e);
+void			move_player_left(t_env *e);
+void			move_player_right(t_env *e);
+void			straffe_right(t_env *e);
+void			straffe_left(t_env *e);
 
+void			ft_init_sprites(t_env *e);
+void			ft_create_sprites(t_env *e);
 void			sprite_cast(t_env *e, int nb);
 void			comb_sort(int *order, double *dist, int amount);
+int				get_next_line(int fd, char **line);
 
 #endif

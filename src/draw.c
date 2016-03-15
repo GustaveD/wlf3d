@@ -6,16 +6,15 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 15:11:41 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/11 17:10:07 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/15 10:25:06 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
-
 int		draw(t_env *e)
 {
-	fill_img(e, 144);
+	fill_img(e, 200);
 	ft_raycasting(e);
 	e->oldtime = e->time;
 	e->time = clock();

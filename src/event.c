@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 13:37:50 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/11 16:58:06 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/14 16:06:52 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,47 +31,35 @@ int		loop_hook(t_env *e)
 {
 	draw(e);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
-	return(0);
+	return (0);
 }
 
 int		keyboard_event(int keycode, t_env *e)
 {
-	//printf("keycode =- %d\n", keycode);
 	if (keycode == KEYCODE_EXIT)
 		exit(EXIT_SUCCESS);
 	if (keycode == 126)
 	{
-		if (!(worldMap[(int)(PPOSX + PDIRX * PMOVS)][(int)(PPOSY)]))
+		if (!(e->map[(int)(PPOSX + PDIRX * PMOVS)][(int)(PPOSY)]))
 			PPOSX += PDIRX * PMOVS;
-		if (!(worldMap[(int)(PPOSX)][(int)(PPOSY + PDIRY * PMOVS)]))
+		if (!(e->map[(int)(PPOSX)][(int)(PPOSY + PDIRY * PMOVS)]))
 			PPOSY += PDIRY * PMOVS;
 	}
 	if (keycode == 123)
-	{
-		double oldDirX = PDIRX;
-		PDIRX = PDIRX * cos(PROTS) - PDIRY * sin(PROTS);
-		PDIRY = oldDirX * sin(PROTS) + PDIRY * cos(PROTS);
-		double oldPlaneX = PPLANEX;
-		PPLANEX = PPLANEX * cos(PROTS) - PPLANEY * sin(PROTS);
-		PPLANEY = oldPlaneX * sin(PROTS) + PPLANEY * cos(PROTS);
-
-	}
+		move_player_left(e);
 	if (keycode == 125)
 	{
-		if (!(worldMap[(int)(PPOSX - PDIRX * PMOVS)][(int)(PPOSY)]))
+		if (!(e->map[(int)(PPOSX - PDIRX * PMOVS)][(int)(PPOSY)]))
 			PPOSX -= PDIRX * PMOVS;
-		if (!(worldMap[(int)(PPOSX)][(int)(PPOSY - PDIRY * PMOVS)]))
+		if (!(e->map[(int)(PPOSX)][(int)(PPOSY - PDIRY * PMOVS)]))
 			PPOSY -= PDIRY * PMOVS;
 	}
 	if (keycode == 124)
-	{
-		double oldDirX = PDIRX;
-		PDIRX = PDIRX * cos(-PROTS) - PDIRY * sin(-PROTS);
-		PDIRY = oldDirX * sin(-PROTS) + PDIRY * cos(-PROTS);
-		double oldPlaneX = PPLANEX;
-		PPLANEX = PPLANEX * cos(-PROTS) - PPLANEY * sin(-PROTS);
-		PPLANEY = oldPlaneX * sin(-PROTS) + PPLANEY * cos(-PROTS);
-	}
+		move_player_right(e);
+	if (keycode == 2)
+		straffe_right(e);
+	if (keycode == 0)
+		straffe_left(e);
 	draw(e);
 	return (0);
 }
