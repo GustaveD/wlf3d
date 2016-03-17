@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:13:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/14 13:44:55 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/17 11:38:50 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,18 +195,19 @@ void			choose_color(t_color *color, int r, int g, int b);
 void			fill_img(t_env *env, int color);
 void			img_put_vline(t_env *e, t_vertex *v1, t_vertex *v2, int color);
 void			ft_raycasting(t_env *e);
+void			ft_error(int err, t_env *e, char *s);
 
-void			ft_create_map(t_env *e, int fd);
-void			ft_map(t_env *e, int fd);
+int				ft_create_map(t_env *e, int fd);
+int				ft_map(t_env *e, int fd);
 
 void			init_texture(t_env *e);
-void			ft_create_texture(t_env *e);
+int				ft_create_texture(t_env *e);
 void			get_text(t_env *e);
 void			draw_text(t_env *e);
 void			draw_text_2(t_env *e);
 void			set_text(t_env *e, double y);
 
-void			ft_create_floor(t_env *e);
+int				ft_create_floor(t_env *e);
 void			ft_direction_floor(t_env *e);
 void			ft_floor_to_img(t_env *e, int x, int y);
 void			ft_draw_floor(t_env *e);
@@ -219,7 +220,7 @@ void			straffe_right(t_env *e);
 void			straffe_left(t_env *e);
 
 void			ft_init_sprites(t_env *e);
-void			ft_create_sprites(t_env *e);
+int				ft_create_sprites(t_env *e);
 void			sprite_cast(t_env *e, int nb);
 void			comb_sort(int *order, double *dist, int amount);
 int				get_next_line(int fd, char **line);

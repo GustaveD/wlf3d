@@ -6,13 +6,13 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:17:56 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/14 16:36:50 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/17 13:38:20 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
-void			ft_create_sprites(t_env *e)
+int			ft_create_sprites(t_env *e)
 {
 	int i;
 	int la;
@@ -20,13 +20,13 @@ void			ft_create_sprites(t_env *e)
 
 	i = 0;
 	if (!(e->sprite = (t_sprite**)malloc(sizeof(t_sprite) * NBSPRITE)))
-		exit(EXIT_FAILURE);
+		return (0);
 	while (i < NBSPRITE)
 	{
 		if (!(e->sprite[i] = (t_sprite*)malloc(sizeof(t_sprite))))
-			exit(EXIT_FAILURE);
+			return (0);
 		if (!(e->sprite[i]->img = (t_img*)malloc(sizeof(t_img))))
-			exit(EXIT_FAILURE);
+			return (0);
 		e->sprite[i]->img->data =
 			mlx_xpm_file_to_image(e->mlx, "img/sprite/policeman.xpm", &la, &lo);
 		e->sprite[i]->img->data =
@@ -36,6 +36,7 @@ void			ft_create_sprites(t_env *e)
 		i++;
 	}
 	ft_init_sprites(e);
+	return (1);
 }
 
 static void		ft_sprite_init(t_env *e, int *sprite_order, int i)

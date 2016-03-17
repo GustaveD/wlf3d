@@ -6,13 +6,13 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 11:33:46 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/15 10:19:45 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/17 11:31:07 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
-void		init_texture(t_env *e)
+void			init_texture(t_env *e)
 {
 	int i;
 
@@ -26,19 +26,11 @@ void		init_texture(t_env *e)
 	}
 }
 
-void		ft_create_texture(t_env *e)
+static void		ft_load_text(t_env *e)
 {
-	int i;
-	int	lar;
-	int	lon;
+	int lar;
+	int lon;
 
-	i = 0;
-	TEXT = (t_img**)malloc(sizeof(t_img) * 6);
-	while (i < 6)
-	{
-		TEXT[i] = (t_img*)malloc(sizeof(t_img));
-		i++;
-	}
 	TEXT[0]->data =
 		mlx_xpm_file_to_image(e->mlx, "img/text/stone1.xpm", &lar, &lon);
 	TEXT[0]->wdth = lon;
@@ -61,10 +53,27 @@ void		ft_create_texture(t_env *e)
 		mlx_xpm_file_to_image(e->mlx, "img/text/wood.XPM", &lar, &lon);
 	TEXT[5]->wdth = lon;
 	TEXT[5]->hght = lar;
-	init_texture(e);
 }
 
-void		get_text(t_env *e)
+int				ft_create_texture(t_env *e)
+{
+	int i;
+
+	i = 0;
+	if (!(TEXT = (t_img**)malloc(sizeof(t_img) * 6)))
+		return (0);
+	while (i < 6)
+	{
+		if (!(TEXT[i] = (t_img*)malloc(sizeof(t_img))))
+			return (0);
+		i++;
+	}
+	ft_load_text(e);
+	init_texture(e);
+	return (1);
+}
+
+void			get_text(t_env *e)
 {
 	if (RC->side == 0)
 		RC->wallX = RC->rayPosY + RC->perpWallDist * RC->rayDirY;
@@ -78,19 +87,27 @@ void		get_text(t_env *e)
 		RC->texX = TEXT[e->textid]->wdth - RC->texX - 1;
 }
 
-void		draw_text_2(t_env *e)
+void			draw_text_2(t_env *e)
 {
 	int		d;
 	int		color;
+
 	get_text(e);
 	RC->y = (double)(RC->drawStart);
 	while (RC->y <= RC->drawEnd)
 	{
 		d = RC->y * 2 - WIN_HEIGHT + RC->lineHeight;
 		RC->texY = ((d * TEXT[e->textid]->hght / 2) / RC->lineHeight);
-		color = *((unsigned int*)(TEXT[e->textid]->data + (TEXT[e->textid]->wdth * RC->texY * 4 + RC->texX * 4)));
-		if (RC->side == 1)
+		color = *((unsigned int*)(TEXT[e->textid]->data +
+					(TEXT[e->textid]->wdth * RC->texY * 4 + RC->texX * 4)));
+		if (RC->side == 0 && PDIRX >= 0)
+			color = (color >> 0) & 8355711;
+		else if (RC->side == 0 && PDIRX < 0)
 			color = (color >> 1) & 8355711;
+		else if (RC->side == 1 && PDIRY <= 0)
+			color = (color >> 2) & 8355711;
+		else
+			color = (color >> 3) & 8355711;
 		img_put_pixel(e, RC->x, RC->y, color);
 		RC->y++;
 	}

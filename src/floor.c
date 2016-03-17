@@ -6,17 +6,18 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 16:30:02 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/15 10:19:51 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/17 11:31:46 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
-void	ft_create_floor(t_env *e)
+int		ft_create_floor(t_env *e)
 {
 	if (!(FL = (t_floor*)malloc(sizeof(t_floor))))
-		exit(EXIT_FAILURE);
+		return (0);
 	ft_bzero(FL, sizeof(t_floor));
+	return (1);
 }
 
 void	ft_direction_floor(t_env *e)

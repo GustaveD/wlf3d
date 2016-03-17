@@ -6,7 +6,7 @@
 #    By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/02 12:17:28 by jrosamon          #+#    #+#              #
-#    Updated: 2016/03/15 10:25:50 by jrosamon         ###   ########.fr        #
+#    Updated: 2016/03/17 11:07:10 by jrosamon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SOURCES = src/main.c \
 		  src/event.c\
 		  src/move.c\
 		  src/draw.c\
-		  src/color.c\
+		  src/error.c\
 		  src/map.c\
 		  src/img.c\
 		  src/raycasting.c\
