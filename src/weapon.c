@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   weapon.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/02 15:11:41 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/17 18:57:40 by jrosamon         ###   ########.fr       */
+/*   Created: 2016/03/17 17:48:22 by jrosamon          #+#    #+#             */
+/*   Updated: 2016/03/17 18:58:27 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
-int		draw(t_env *e)
+int			create_weapon(t_env *e)
 {
-	fill_img(e, 200);
-	ft_raycasting(e);
-	e->oldtime = e->time;
-	e->time = clock();
-	e->frametime = (e->time - e->oldtime) / 1000.0;
-	PMOVS = e->frametime / 20;
-	PROTS = e->frametime / 50;
-	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
-	mlx_put_image_to_window(e->mlx, e->win, e->gun->i, 500 / 2, 500 / 2);
-	return (0);
+	int la;
+	int lo;
+
+	if (!(e->gun = (t_img*)malloc(sizeof(t_img))))
+		return (0);
+	e->gun->i = mlx_xpm_file_to_image(e->mlx, "img/sprite/fucksprite.xpm", &la, &lo);
+	e->gun->wdth = lo;
+	e->gun->hght = la;
+	e->gun->data = mlx_get_data_addr(e->gun->i, &e->gun->bpp, &e->gun->sizeline, &e->gun->endian);
+	return (1);
 }

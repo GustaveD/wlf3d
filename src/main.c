@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:10:59 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/17 13:38:21 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/17 18:26:17 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ static void		ft_init(t_env *e, int fd)
 			&e->isizeline, &e->iendian);
 	e->sprite_distance = (double*)malloc(sizeof(double) * NBSPRITE);
 	if (!(ft_create_map(e, fd)))
-	{
-		printf("create_map mort\n");
 		ft_error(2, e, "ERR: create map failed\n");
-	}
 	if (!(ft_create_player(e)))
 		ft_error(2, e, "ERR: create player failed\n");
 	if (!(ft_create_texture(e)))
@@ -88,11 +85,12 @@ static void		ft_init(t_env *e, int fd)
 		ft_error(2, e, "ERR: create floor failed\n");
 	 if (!(ft_create_sprites(e)))
 		ft_error(2, e, "ERR: create sprite failed\n");
+	 if (!(create_weapon(e)))
+		 ft_error(2, e, "ERR: create weapon failed\n");
 	e->time = 0;
 	e->oldtime = 0;
 	e->frametime = 0;
 	e->textid = 0;
-	printf("fin init\n");
 }
 
 int				main(int ac, char **av)
@@ -103,9 +101,7 @@ int				main(int ac, char **av)
 	if (ac != 2)
 		ft_error(2, &e, "ERR: Need a map\n");
 	fd = open(av[ac - 1], O_RDONLY);
-	printf("Fd = %d\n", fd);
 	ft_init(&e, fd);
-	printf("apres ini\n");
 	mlx_key_hook(e.win, &keyboard_event, &e);
 	mlx_mouse_hook(e.win, &mouse_event, &e);
 	mlx_expose_hook(e.win, &expose_hook, &e);

@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 13:37:50 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/17 11:41:49 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/17 18:58:25 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int		expose_hook(t_env *e)
 int		loop_hook(t_env *e)
 {
 	draw(e);
-	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 	return (0);
 }
 

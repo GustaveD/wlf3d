@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:17:56 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/17 13:38:20 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/17 19:07:27 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int			ft_create_sprites(t_env *e)
 			return (0);
 		if (!(e->sprite[i]->img = (t_img*)malloc(sizeof(t_img))))
 			return (0);
-		e->sprite[i]->img->data =
+		e->sprite[i]->img->i =
 			mlx_xpm_file_to_image(e->mlx, "img/sprite/policeman.xpm", &la, &lo);
 		e->sprite[i]->img->data =
-			mlx_get_data_addr(e->sprite[i]->img->data, &e->sprite[i]->img->bpp,
+			mlx_get_data_addr(e->sprite[i]->img->i, &e->sprite[i]->img->bpp,
 												&e->sprite[i]->img->sizeline,
 												&e->sprite[i]->img->endian);
 		i++;
@@ -91,9 +91,10 @@ static void		ft_stripe_draw(t_env *e, int *sprite_order, int i, int stripe)
 	RC->y = RC->dstarty;
 	while (RC->y < RC->dendy)
 	{
-		d = (RC->y) * 256 - WIN_HEIGHT * 128 + RC->s_height * 128;
-		RC->texY = ((d * TEXT_HEIGHT) / RC->s_height) / 256;
-		color = *((unsigned int*)(e->sprite[sprite_order[i]]->img->data + (TEXT_WIDTH + RC->texY * 4 +
+		d = (RC->y) * 2 - WIN_HEIGHT * + RC->s_height;
+		RC->texY = ((d * TEXT_HEIGHT / 2) / RC->s_height);
+		color = *((unsigned int*)(e->sprite[sprite_order[i]]->img->i + (
+						TEXT_WIDTH + RC->texY * 4 +
 						RC->texX * 4)));
 		img_put_pixel(e, stripe, RC->y, color);
 		RC->y++;
@@ -115,7 +116,7 @@ void			sprite_cast(t_env *e, int nb)
 		while (stripe < RC->dendx)
 		{
 			RC->texX = (int)(256 * (stripe - (RC->s_screenx - RC->s_width / 2))
-										* TEXT_WIDTH / RC->s_height / 256);
+										* TEXT_HEIGHT / RC->s_height / 256);
 			if (RC->transf_y > 0 && stripe > 0 && stripe < WIN_WIDTH &&
 					RC->transf_y < e->zbuffer[stripe])
 				ft_stripe_draw(e, sprite_order, i, stripe);

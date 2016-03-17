@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 16:50:48 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/17 13:38:22 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/17 17:35:45 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int			ft_error(int er)
 	(void)e;
 }*/
 
+/*
 static void		destroy_map(int **map)
 {
 	int		i;
@@ -51,14 +52,13 @@ static void		destroy_map(int **map)
 		i++;
 	}
 }
-
+*/
 void			ft_error(int err, t_env *e, char *s)
 {
 	if (e)
 	{
 		e->img != NULL ? mlx_destroy_image(e->mlx, e->img) : 0;
 		e->win != NULL ? mlx_destroy_window(e->mlx, e->win) : 0;
-		e->map != NULL ? destroy_map(e->map) : 0;
 	}
 	if (s)
 		ft_putstr_fd(s, err);

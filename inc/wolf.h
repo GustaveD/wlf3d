@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:13:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/17 11:38:50 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/17 18:29:50 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct	s_color
 
 typedef struct	s_img
 {
+	void		*i;
 	char		*data;
 	int			bpp;
 	int			sizeline;
@@ -178,6 +179,7 @@ typedef struct	s_env
 	int			buffer[WIN_WIDTH][WIN_HEIGHT];
 	t_raycast	*rc;
 	t_img		**texture;
+	t_img		*gun;
 	t_floor		*fl;
 	int			textid;
 	t_player	*p;
@@ -224,5 +226,7 @@ int				ft_create_sprites(t_env *e);
 void			sprite_cast(t_env *e, int nb);
 void			comb_sort(int *order, double *dist, int amount);
 int				get_next_line(int fd, char **line);
+
+int				create_weapon(t_env *e);
 
 #endif
