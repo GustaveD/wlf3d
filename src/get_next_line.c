@@ -6,7 +6,7 @@
 /*   By: jrosamon <jrosamon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 18:04:33 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/17 12:46:27 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/18 16:51:51 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,7 @@ int					get_next_line(int fd, char **line)
 		free(tmp);
 	}
 	if (ret == -1)
-	{
-		printf("ret = %d\n", ret);
 		return (-1);
-	}
 	if (ret == 0 && ft_strchr(save, '\n') == NULL)
 		return ((ft_end(line, &save)));
 	ft_ret(line, &(save));

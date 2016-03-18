@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:17:56 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/17 19:07:27 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/18 17:02:02 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void		ft_stripe_draw(t_env *e, int *sprite_order, int i, int stripe)
 	RC->y = RC->dstarty;
 	while (RC->y < RC->dendy)
 	{
-		d = (RC->y) * 2 - WIN_HEIGHT * + RC->s_height;
+		d = (RC->y) * 2 - WIN_HEIGHT /***/  + RC->s_height;
 		RC->texY = ((d * TEXT_HEIGHT / 2) / RC->s_height);
 		color = *((unsigned int*)(e->sprite[sprite_order[i]]->img->i + (
 						TEXT_WIDTH + RC->texY * 4 +

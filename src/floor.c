@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 16:30:02 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/17 11:31:46 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/18 16:47:31 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	ft_draw_floor(t_env *e)
 		FL->currfloory = FL->weight * FL->fywall + (1.0 - FL->weight) * PPOSY;
 		FL->ftextx = (int)(FL->currfloorx * TEXT[5]->wdth) % TEXT[5]->wdth;
 		FL->ftexty = (int)(FL->currfloory * TEXT[5]->hght) % TEXT[5]->hght;
-		color = *((unsigned int*)(TEXT[5]->data + (TEXT[5]->wdth * FL->ftexty * 4 + FL->ftextx * 4)));
+		color = *((unsigned int*)(TEXT[5]->data +
+					(TEXT[5]->wdth * FL->ftexty * 4 + FL->ftextx * 4)));
 		img_put_pixel(e, RC->x, i, color);
 		img_put_pixel(e, RC->x, WIN_HEIGHT - i, color);
 		i++;

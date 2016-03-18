@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 13:37:50 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/18 15:42:03 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/18 16:47:06 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,6 @@ int		expose_hook(t_env *e)
 int		loop_hook(t_env *e)
 {
 	action_player(e);
-	draw(e);
-	return (0);
-}
-
-
-int		keyboard_event(int keycode, t_env *e)
-{
-	if (keycode == KEYCODE_EXIT)
-		exit(EXIT_SUCCESS);
-	if (keycode == 126)
-	{
-		if (!(e->map[(int)(PPOSX + PDIRX * PMOVS)][(int)(PPOSY)]))
-			PPOSX += PDIRX * PMOVS;
-		if (!(e->map[(int)(PPOSX)][(int)(PPOSY + PDIRY * PMOVS)]))
-			PPOSY += PDIRY * PMOVS;
-	}
-	if (keycode == 123)
-		move_player_left(e);
-	if (keycode == 125)
-	{
-		if (!(e->map[(int)(PPOSX - PDIRX * PMOVS)][(int)(PPOSY)]))
-			PPOSX -= PDIRX * PMOVS;
-		if (!(e->map[(int)(PPOSX)][(int)(PPOSY - PDIRY * PMOVS)]))
-			PPOSY -= PDIRY * PMOVS;
-	}
-	if (keycode == 124)
-		move_player_right(e);
-	if (keycode == 2)
-		straffe_right(e);
-	if (keycode == 0)
-		straffe_left(e);
-	if (keycode == 1)
-		e->key->shoot = 1;
 	draw(e);
 	return (0);
 }

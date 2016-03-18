@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 10:49:05 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/18 16:42:06 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/18 16:58:05 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		straffe_right(t_env *e)
 	{
 		if (!(e->map[(int)(PPOSX)][(int)(PPOSY - PMOVS)]
 			&& !(e->map[(int)(PPOSX)][(int)(PPOSY - PMOVS)])))
-				PPOSY = PPOSY - PMOVS;
+			PPOSY = PPOSY - PMOVS;
 	}
 	else if (PDIRX >= -0.8 && PDIRX <= 0.8 && PDIRY >= -1 && PDIRY < -0.5)
 	{
@@ -69,17 +69,17 @@ void		straffe_left(t_env *e)
 	if (PDIRX >= -1 && PDIRX <= -0.8 && PDIRY > -0.8 && PDIRY <= 0.8)
 		if (e->map[(int)(PPOSX)][(int)(PPOSY - PMOVS)] == 0
 			&& e->map[(int)(PPOSX)][(int)(PPOSY - PMOVS)] == 0)
-							PPOSY = PPOSY - PMOVS;
+			PPOSY = PPOSY - PMOVS;
 	if (PDIRX >= 1 && PDIRX <= 0.8 && PDIRY > 0.8 && PDIRY <= 0.8)
 	{
-	if (e->map[(int)(PPOSX)][(int)(PPOSY + PMOVS)] == 0
+		if (e->map[(int)(PPOSX)][(int)(PPOSY + PMOVS)] == 0
 						&& e->map[(int)(PPOSX)][(int)(PPOSY + PMOVS)] == 0)
-					PPOSY = PPOSY + PMOVS;
+			PPOSY = PPOSY + PMOVS;
 	}
 	else if (PDIRX >= -0.8 && PDIRX <= 0.8 && PDIRY >= -1 && PDIRY < -0.5)
 	{
 		if (e->map[(int)(PPOSX + PMOVS)][(int)(PPOSY)] == 0)
-										PPOSX = PPOSX + PMOVS;
+			PPOSX = PPOSX + PMOVS;
 	}
 	else if (PDIRX >= -0.8 && PDIRX <= 0.8 && PDIRY > 0.5 && PDIRY <= 1)
 	{
