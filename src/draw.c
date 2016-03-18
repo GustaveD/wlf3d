@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 15:11:41 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/17 18:57:40 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/18 11:51:01 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int		draw(t_env *e)
 	PMOVS = e->frametime / 20;
 	PROTS = e->frametime / 50;
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
-	mlx_put_image_to_window(e->mlx, e->win, e->gun->i, 500 / 2, 500 / 2);
+	mlx_put_image_to_window(e->mlx, e->win, e->gun->img->i, e->gun->x, e->gun->y);
 	return (0);
 }

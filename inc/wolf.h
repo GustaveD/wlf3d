@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:13:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/17 18:29:50 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/18 11:48:46 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,15 @@ typedef struct	s_sprite
 	t_img		*img;
 }				t_sprite;
 
+typedef struct	s_key
+{
+	int			up;
+	int			down;
+	int			right;
+	int			left;
+	int			run;
+}				t_key;
+
 typedef	struct	s_raycast
 {
 	int			x;
@@ -169,6 +178,7 @@ typedef struct	s_env
 	void		*img;
 	char		*idata;
 	int			**map;
+	t_key		*key;
 	int			bpp;
 	int			isizeline;
 	int			iendian;
@@ -179,7 +189,7 @@ typedef struct	s_env
 	int			buffer[WIN_WIDTH][WIN_HEIGHT];
 	t_raycast	*rc;
 	t_img		**texture;
-	t_img		*gun;
+	t_sprite	*gun;
 	t_floor		*fl;
 	int			textid;
 	t_player	*p;
@@ -190,6 +200,7 @@ typedef struct	s_env
 
 int				mouse_event(int button, int x, int y, t_env *e);
 int				keyboard_event(int keycode, t_env *e);
+int				create_key(t_env *e);
 void			img_put_pixel(t_env *e, int x, int y, int color);
 int				draw(t_env *e);
 int				color_in_int(t_color *color);
