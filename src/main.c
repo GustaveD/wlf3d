@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:10:59 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/17 18:26:17 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/18 15:29:11 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ static void		ft_init(t_env *e, int fd)
 		ft_error(2, e, "ERR: create sprite failed\n");
 	 if (!(create_weapon(e)))
 		 ft_error(2, e, "ERR: create weapon failed\n");
+	 if (!(create_key(e)))
+		 ft_error(2, e, "ERR: create key failed\n");
 	e->time = 0;
 	e->oldtime = 0;
 	e->frametime = 0;
@@ -102,10 +104,12 @@ int				main(int ac, char **av)
 		ft_error(2, &e, "ERR: Need a map\n");
 	fd = open(av[ac - 1], O_RDONLY);
 	ft_init(&e, fd);
-	mlx_key_hook(e.win, &keyboard_event, &e);
-	mlx_mouse_hook(e.win, &mouse_event, &e);
 	mlx_expose_hook(e.win, &expose_hook, &e);
+//	mlx_key_hook(e.win, &keyboard_event, &e);
+//	mlx_mouse_hook(e.win, &mouse_event, &e);
 	mlx_loop_hook(e.mlx, &loop_hook, &e);
+	mlx_hook(e.win, 2, (1L << 0), key_pr, &e);
+	mlx_hook(e.win, 3, (1L << 0), key_rel, &e);
 	mlx_loop(e.mlx);
 	return (0);
 }

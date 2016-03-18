@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 13:37:50 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/18 11:51:00 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/18 15:42:03 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ int		expose_hook(t_env *e)
 
 int		loop_hook(t_env *e)
 {
+	action_player(e);
 	draw(e);
 	return (0);
 }
 
+
 int		keyboard_event(int keycode, t_env *e)
 {
-	printf("keycode = %d\n", keycode);
 	if (keycode == KEYCODE_EXIT)
 		exit(EXIT_SUCCESS);
 	if (keycode == 126)
@@ -68,6 +69,8 @@ int		keyboard_event(int keycode, t_env *e)
 		straffe_right(e);
 	if (keycode == 0)
 		straffe_left(e);
+	if (keycode == 1)
+		e->key->shoot = 1;
 	draw(e);
 	return (0);
 }

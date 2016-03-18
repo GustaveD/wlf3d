@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:13:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/18 11:48:46 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/18 16:33:34 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,16 @@ typedef struct	s_sprite
 
 typedef struct	s_key
 {
+	int			move;
 	int			up;
 	int			down;
 	int			right;
+	int			s_right;
+	int			s_left;
 	int			left;
 	int			run;
+	int			shoot;
+	int			anim;
 }				t_key;
 
 typedef	struct	s_raycast
@@ -189,7 +194,7 @@ typedef struct	s_env
 	int			buffer[WIN_WIDTH][WIN_HEIGHT];
 	t_raycast	*rc;
 	t_img		**texture;
-	t_sprite	*gun;
+	t_sprite	**gun;
 	t_floor		*fl;
 	int			textid;
 	t_player	*p;
@@ -231,6 +236,10 @@ void			move_player_left(t_env *e);
 void			move_player_right(t_env *e);
 void			straffe_right(t_env *e);
 void			straffe_left(t_env *e);
+int				key_pr(int key, t_env *e);
+int				key_rel(int key, t_env *e);
+int				action_player(t_env *e);
+
 
 void			ft_init_sprites(t_env *e);
 int				ft_create_sprites(t_env *e);
@@ -239,5 +248,6 @@ void			comb_sort(int *order, double *dist, int amount);
 int				get_next_line(int fd, char **line);
 
 int				create_weapon(t_env *e);
+void			draw_weapon(t_env *e);
 
 #endif

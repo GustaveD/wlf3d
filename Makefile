@@ -6,7 +6,7 @@
 #    By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/02 12:17:28 by jrosamon          #+#    #+#              #
-#    Updated: 2016/03/17 17:55:20 by jrosamon         ###   ########.fr        #
+#    Updated: 2016/03/18 13:49:40 by jrosamon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SOURCES = src/main.c \
 		  src/comb.c\
 		  src/sprite.c\
 		  src/get_next_line.c\
-		  src/weapon.c
+		  src/weapon.c\
+		  src/key.c
 
 INCLUDES = inc/
 
