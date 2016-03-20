@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 16:30:02 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/18 16:47:31 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/20 19:52:04 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,17 @@ void	ft_direction_floor(t_env *e)
 	ft_draw_floor(e);
 }
 
+void static		ft_draw_sky(t_env *e, int y)
+{
+	int color;
+
+	FL->ftextx = (int)(FL->currfloorx * TEXT[4]->wdth) % TEXT[4]->wdth;
+	FL->ftexty = (int)(FL->currfloory * TEXT[4]->hght) % TEXT[4]->hght;
+	color = *((unsigned int*)(TEXT[4]->data +
+				(TEXT[4]->wdth * FL->ftexty * 4 + FL->ftextx * 4)));
+	img_put_pixel(e, RC->x, WIN_HEIGHT - y, color);
+}
+
 void	ft_draw_floor(t_env *e)
 {
 	int i;
@@ -55,7 +66,7 @@ void	ft_draw_floor(t_env *e)
 	FL->distplayer = 0;
 	if (RC->drawEnd < 0)
 		RC->drawEnd = WIN_HEIGHT;
-	while (i <= WIN_HEIGHT)
+	while (i < WIN_HEIGHT)
 	{
 		FL->currdist = WIN_HEIGHT / (2.0 * i - WIN_HEIGHT);
 		FL->weight = (FL->currdist - FL->distplayer) /
@@ -67,7 +78,7 @@ void	ft_draw_floor(t_env *e)
 		color = *((unsigned int*)(TEXT[5]->data +
 					(TEXT[5]->wdth * FL->ftexty * 4 + FL->ftextx * 4)));
 		img_put_pixel(e, RC->x, i, color);
-		img_put_pixel(e, RC->x, WIN_HEIGHT - i, color);
+		ft_draw_sky(e, i);
 		i++;
 	}
 }

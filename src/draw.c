@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 15:11:41 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/18 16:45:28 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/20 19:52:03 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int				draw(t_env *e)
 {
-	fill_img(e, 200);
+	fill_img(e, 0);
 	ft_raycasting(e);
 	e->oldtime = e->time;
 	e->time = clock();
