@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:13:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/20 19:21:08 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/22 20:04:29 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ typedef struct	s_env
 	t_sprite	**gun;
 	t_floor		*fl;
 	int			textid;
+	int			idtext;
 	t_player	*p;
 	t_sprite	**sprite;
 	double		zbuffer[WIN_WIDTH];

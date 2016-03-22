@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 13:37:50 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/20 19:39:12 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/22 20:58:57 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ int		create_key(t_env *e)
 		return (0);
 	ft_bzero(e->key, sizeof(t_key));
 	return (1);
-}
-
-int		mouse_event(int button, int x, int y, t_env *e)
-{
-	(void)button;
-	(void)x;
-	(void)y;
-	(void)e;
-	return (0);
 }
 
 int		expose_hook(t_env *e)

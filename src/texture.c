@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 11:33:46 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/20 20:20:55 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/22 20:12:01 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		ft_load_text(t_env *e)
 	int lon;
 
 	TEXT[0]->data =
-		mlx_xpm_file_to_image(e->mlx, "img/text/stone2.xpm", &lar, &lon);
+		mlx_xpm_file_to_image(e->mlx, "img/text/stone1.xpm", &lar, &lon);
 	TEXT[0]->wdth = lon;
 	TEXT[0]->hght = lar;
 	TEXT[1]->data =
@@ -80,11 +80,11 @@ void			get_text(t_env *e)
 	else
 		RC->wallX = RC->rayPosX + RC->perpWallDist * RC->rayDirX;
 	RC->wallX -= floor(RC->wallX);
-	RC->texX = (int)(RC->wallX * (double)(TEXT[e->textid]->wdth));
+	RC->texX = (int)(RC->wallX * (double)(TEXT[e->idtext]->wdth));
 	if (RC->side == 0 && RC->rayDirX > 0)
-		RC->texX = TEXT[e->textid]->wdth - RC->texX - 1;
+		RC->texX = TEXT[e->idtext]->wdth - RC->texX - 1;
 	else if (RC->side == 1 && RC->rayDirY < 0)
-		RC->texX = TEXT[e->textid]->wdth - RC->texX - 1;
+		RC->texX = TEXT[e->idtext]->wdth - RC->texX - 1;
 }
 
 void			draw_text_2(t_env *e)
@@ -92,22 +92,23 @@ void			draw_text_2(t_env *e)
 	int		d;
 	int		color;
 
+	//printf("e->textid %d\n", e->textid);
 	if (RC->side == 1 && RC->rayDirY > 0)
-		e->textid = 0;
+		e->idtext = 0;
 	if (RC->side == 1 && RC->rayDirY <= 0)
-		e->textid = 1;
+		e->idtext = 1;
 	if (RC->side == 0 && RC->rayDirX > 0)
-		e->textid = 2;
+		e->idtext = 2;
 	if (RC->side == 0 && RC->rayDirX <= 0)
-		e->textid = 3;
+		e->idtext = 3;
 	get_text(e);
 	RC->y = (double)(RC->drawStart);
 	while (RC->y < RC->drawEnd)
 	{
-		d = RC->y * 258 - WIN_HEIGHT * 128 + RC->lineHeight * 128;
-		RC->texY = ((d * TEXT[e->textid]->hght) / RC->lineHeight) / 256;
-		color = *((unsigned int*)(TEXT[e->textid]->data +
-					(TEXT[e->textid]->wdth * RC->texY * 4 + RC->texX * 4)));
+		d = RC->y * 256 - WIN_HEIGHT * 128 + RC->lineHeight * 128;
+		RC->texY = ((d * TEXT[e->idtext]->hght) / RC->lineHeight) / 256;
+		color = *((unsigned int*)(TEXT[e->idtext]->data +
+					(TEXT[e->idtext]->wdth * RC->texY * 4 + RC->texX * 4)));
 		img_put_pixel(e, RC->x, RC->y, color);
 		RC->y++;
 	}

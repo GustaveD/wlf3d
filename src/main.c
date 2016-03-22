@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:10:59 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/18 16:57:02 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/22 20:56:07 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int		ft_create_player(t_env *e)
 	e->oldtime = 0;
 	e->frametime = 0;
 	e->textid = 0;
+	e->idtext = 0;
 	return (1);
 }
 
@@ -102,8 +103,6 @@ int				main(int ac, char **av)
 	fd = open(av[ac - 1], O_RDONLY);
 	ft_init(&e, fd);
 	mlx_expose_hook(e.win, &expose_hook, &e);
-//	mlx_key_hook(e.win, &keyboard_event, &e);
-//	mlx_mouse_hook(e.win, &mouse_event, &e);
 	mlx_loop_hook(e.mlx, &loop_hook, &e);
 	mlx_hook(e.win, 2, (1L << 0), key_pr, &e);
 	mlx_hook(e.win, 3, (1L << 0), key_rel, &e);

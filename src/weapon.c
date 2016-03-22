@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 17:48:22 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/18 17:00:16 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/22 21:01:08 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,18 @@ int			create_weapon(t_env *e)
 
 static void	anim_weapon(t_env *e)
 {
+	int v;
+
+	if (e->key->run)
+		v = 8;
+	else
+		v = 5;
 	if (e->key->move && !e->key->anim)
 	{
 		if (e->gun[0]->y > 300 && e->gun[1]->y > 300)
 		{
-			e->gun[0]->y -= 5;
-			e->gun[1]->y -= 5;
+			e->gun[0]->y -= v;
+			e->gun[1]->y -= v;
 		}
 		else
 			e->key->anim = 1;
@@ -72,8 +78,8 @@ static void	anim_weapon(t_env *e)
 	{
 		if (e->gun[0]->y < 350 && e->gun[1]->y < 350)
 		{
-			e->gun[0]->y += 5;
-			e->gun[1]->y += 5;
+			e->gun[0]->y += v;
+			e->gun[1]->y += v;
 		}
 		else
 			e->key->anim = 0;

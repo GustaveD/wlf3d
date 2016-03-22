@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 16:30:02 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/20 19:52:04 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/22 19:52:03 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	ft_draw_floor(t_env *e)
 
 	i = RC->drawEnd + 1;
 	FL->distwall = RC->perpWallDist;
-	FL->distplayer = 0;
+	FL->distplayer = 0.0;
 	if (RC->drawEnd < 0)
 		RC->drawEnd = WIN_HEIGHT;
-	while (i < WIN_HEIGHT)
+	while (++i < WIN_HEIGHT)
 	{
 		FL->currdist = WIN_HEIGHT / (2.0 * i - WIN_HEIGHT);
 		FL->weight = (FL->currdist - FL->distplayer) /
@@ -79,6 +79,5 @@ void	ft_draw_floor(t_env *e)
 					(TEXT[5]->wdth * FL->ftexty * 4 + FL->ftextx * 4)));
 		img_put_pixel(e, RC->x, i, color);
 		ft_draw_sky(e, i);
-		i++;
 	}
 }
