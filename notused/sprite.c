@@ -6,13 +6,13 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:17:56 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/18 17:02:02 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 11:43:30 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
-int			ft_create_sprites(t_env *e)
+int				ft_create_sprites(t_env *e)
 {
 	int i;
 	int la;
@@ -83,7 +83,7 @@ static int		*ft_order(t_env *e, int nb)
 	return (sprite_order);
 }
 
-static void		ft_stripe_draw(t_env *e, int *sprite_order, int i, int stripe)
+static void			ft_stripe_draw(t_env *e, int *sprite_order, int i, int stripe)
 {
 	int		d;
 	int		color;
@@ -101,7 +101,7 @@ static void		ft_stripe_draw(t_env *e, int *sprite_order, int i, int stripe)
 	}
 }
 
-void			sprite_cast(t_env *e, int nb)
+void				sprite_cast(t_env *e, int nb)
 {
 	int		i;
 	int		stripe;

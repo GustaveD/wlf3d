@@ -6,10 +6,9 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:13:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/22 20:04:29 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 12:21:42 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef WOLF_H
 # define WOLF_H
@@ -30,12 +29,9 @@
 # define WIN_HEIGHT 480
 # define TEXT_WIDTH 64
 # define TEXT_HEIGHT 64
-
-# define map_width 24
-# define map_height 24
-
+# define MAP_W 24
+# define MAP_H 24
 # define KEYCODE_EXIT 53
-
 # define PPOSX e->p->pos->x
 # define PPOSY e->p->pos->y
 # define PDIRX e->p->dir->x
@@ -48,20 +44,7 @@
 # define FL e->fl
 # define TEXT e->texture
 
-# define BLUE 0x0000cc
-# define GREEN 0x00cc00
-# define BROWN 0xcc660
-# define GREY 0x999999
-# define FUSHIA 0xcc00cc
-# define YELLOW 0xcccc00
-# define WHITE 0xffffff
-# define RED 0xff0000
-# define NBSPRITE 5
-
-extern int	worldMap[map_width][map_height];
-extern int	worldMap2[map_width][map_height];
-
-typedef struct s_vertex
+typedef struct	s_vertex
 {
 	double		x;
 	double		y;
@@ -93,7 +76,6 @@ typedef struct	s_img
 	int			endian;
 	int			hght;
 	int			wdth;
-
 }				t_img;
 
 typedef struct	s_sprite
@@ -122,28 +104,28 @@ typedef	struct	s_raycast
 {
 	int			x;
 	int			y;
-	double		cameraX;
-	double		rayPosX;
-	double		rayPosY;
-	double		rayDirX;
-	double		rayDirY;
-	int			mapX;
-	int			mapY;
-	double		sideDistX;
-	double		sideDistY;
-	double		deltaDistX;
-	double		deltaDistY;
-	double		perpWallDist;
-	int			stepX;
-	int			stepY;
+	double		camera_x;
+	double		ray_posx;
+	double		ray_posy;
+	double		ray_dirx;
+	double		ray_diry;
+	int			mapx;
+	int			mapy;
+	double		side_dx;
+	double		side_dy;
+	double		delta_dx;
+	double		delta_dy;
+	double		perp_wall_d;
+	int			step_x;
+	int			step_y;
 	int			hit;
 	int			side;
-	int			lineHeight;
-	int			drawStart;
-	int			drawEnd;
-	double		wallX;
-	int			texX;
-	int			texY;
+	int			line_hght;
+	int			draw_start;
+	int			draw_end;
+	double		wall_x;
+	int			tex_x;
+	int			tex_y;
 	int			i;
 	double		s_x;
 	double		s_y;
@@ -173,7 +155,6 @@ typedef	struct	s_floor
 	int			ftextx;
 	int			ftexty;
 	int			chekbrdpattrn;
-	
 }				t_floor;
 
 typedef struct	s_env
@@ -198,6 +179,7 @@ typedef struct	s_env
 	t_floor		*fl;
 	int			textid;
 	int			idtext;
+	int			v_anim;
 	t_player	*p;
 	t_sprite	**sprite;
 	double		zbuffer[WIN_WIDTH];
@@ -241,11 +223,6 @@ int				key_pr(int key, t_env *e);
 int				key_rel(int key, t_env *e);
 int				action_player(t_env *e);
 
-
-void			ft_init_sprites(t_env *e);
-int				ft_create_sprites(t_env *e);
-void			sprite_cast(t_env *e, int nb);
-void			comb_sort(int *order, double *dist, int amount);
 int				get_next_line(int fd, char **line);
 
 int				create_weapon(t_env *e);

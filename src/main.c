@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:10:59 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/22 20:56:07 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 12:10:56 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int		ft_create_player(t_env *e)
 	e->frametime = 0;
 	e->textid = 0;
 	e->idtext = 0;
+	e->v_anim = 0;
 	return (1);
 }
 
@@ -46,25 +47,6 @@ static int		ft_create_rc(t_env *e)
 	return (1);
 }
 
-void			ft_init_sprites(t_env *e)
-{
-	int		i;
-	double	x;
-	double	y;
-
-	x = 5.0;
-	y = 5.0;
-	i = 0;
-	while (i < NBSPRITE)
-	{
-		x += 5.0;
-		y += 5.0;
-		e->sprite[i]->x = x;
-		e->sprite[i]->y = y;
-		i++;
-	}
-}
-
 static void		ft_init(t_env *e, int fd)
 {
 	e->mlx = mlx_init();
@@ -74,7 +56,6 @@ static void		ft_init(t_env *e, int fd)
 	e->img = mlx_new_image(e->mlx, WIN_WIDTH, WIN_HEIGHT);
 	e->idata = mlx_get_data_addr(e->img, &e->bpp,
 			&e->isizeline, &e->iendian);
-	e->sprite_distance = (double*)malloc(sizeof(double) * NBSPRITE);
 	if (!(ft_create_map(e, fd)))
 		ft_error(2, e, "ERR: create map failed\n");
 	if (!(ft_create_player(e)))
@@ -85,8 +66,6 @@ static void		ft_init(t_env *e, int fd)
 		ft_error(2, e, "ERR: create struct rc failed\n");
 	if (!(ft_create_floor(e)))
 		ft_error(2, e, "ERR: create floor failed\n");
-	if (!(ft_create_sprites(e)))
-		ft_error(2, e, "ERR: create sprite failed\n");
 	if (!(create_weapon(e)))
 		ft_error(2, e, "ERR: create weapon failed\n");
 	if (!(create_key(e)))

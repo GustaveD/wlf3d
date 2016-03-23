@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 13:42:48 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/22 20:58:56 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 12:53:21 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int		key_rel(int key, t_env *e)
 	key == 1 ? e->key->shoot = 0 : 0;
 	key == 2 ? e->key->s_right = 0 : 0;
 	key == 0 ? e->key->s_left = 0 : 0;
-	printf("key = %d\n", key);
 	key == 15 ? e->key->run = 0 : 0;
 	e->key->move = 0;
 	return (1);

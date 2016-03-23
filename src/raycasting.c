@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/05 16:40:36 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/22 20:56:02 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 12:10:54 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void			ft_draw_buff(t_env *e)
 {
-	RC->lineHeight = (int)(WIN_HEIGHT / RC->perpWallDist);
-	RC->drawStart = -RC->lineHeight / 2 + WIN_HEIGHT / 2;
-	if (RC->drawStart < 0)
-		RC->drawStart = 0;
-	RC->drawEnd = RC->lineHeight / 2 + WIN_HEIGHT / 2;
-	if (RC->drawEnd >= WIN_HEIGHT)
-		RC->drawEnd = WIN_HEIGHT - 1;
-	e->textid = e->map[RC->mapY][RC->mapX];
+	RC->line_hght = (int)(WIN_HEIGHT / RC->perp_wall_d);
+	RC->draw_start = -RC->line_hght / 2 + WIN_HEIGHT / 2;
+	if (RC->draw_start < 0)
+		RC->draw_start = 0;
+	RC->draw_end = RC->line_hght / 2 + WIN_HEIGHT / 2;
+	if (RC->draw_end >= WIN_HEIGHT)
+		RC->draw_end = WIN_HEIGHT - 1;
+	e->textid = e->map[RC->mapy][RC->mapx];
 	draw_text_2(e);
 }
 
@@ -29,51 +29,51 @@ static void			ft_dda(t_env *e)
 {
 	while (RC->hit == 0)
 	{
-		if (RC->sideDistX < RC->sideDistY)
+		if (RC->side_dx < RC->side_dy)
 		{
-			RC->sideDistX += RC->deltaDistX;
-			RC->mapX += RC->stepX;
+			RC->side_dx += RC->delta_dx;
+			RC->mapx += RC->step_x;
 			RC->side = 0;
 		}
 		else
 		{
-			RC->sideDistY += RC->deltaDistY;
-			RC->mapY += RC->stepY;
+			RC->side_dy += RC->delta_dy;
+			RC->mapy += RC->step_y;
 			RC->side = 1;
 		}
-		if (e->map[RC->mapX][RC->mapY] > 0)
+		if (e->map[RC->mapx][RC->mapy] > 0)
 			RC->hit = 1;
 	}
 	if (RC->side == 0)
-		RC->perpWallDist = (RC->mapX - RC->rayPosX + (1 - RC->stepX) / 2)
-							/ RC->rayDirX;
+		RC->perp_wall_d = (RC->mapx - RC->ray_posx + (1 - RC->step_x) / 2)
+							/ RC->ray_dirx;
 	else
-		RC->perpWallDist = (RC->mapY - RC->rayPosY + (1 - RC->stepY) / 2)
-							/ RC->rayDirY;
+		RC->perp_wall_d = (RC->mapy - RC->ray_posy + (1 - RC->step_y) / 2)
+							/ RC->ray_diry;
 }
 
 static void			ft_init_ray(t_env *e)
 {
-	RC->cameraX = 2 * RC->x / (double)WIN_WIDTH - 1;
-	RC->rayPosX = PPOSX;
-	RC->rayPosY = PPOSY;
-	RC->rayDirX = PDIRX + PPLANEX * RC->cameraX;
-	RC->rayDirY = PDIRY + PPLANEY * RC->cameraX;
-	RC->mapX = (int)RC->rayPosX;
-	RC->mapY = (int)RC->rayPosY;
-	RC->deltaDistX = sqrt(1 + (RC->rayDirY * RC->rayDirY) /
-								(RC->rayDirX * RC->rayDirX));
-	RC->deltaDistY = sqrt(1 + (RC->rayDirX * RC->rayDirX) /
-								(RC->rayDirY * RC->rayDirY));
+	RC->camera_x = 2 * RC->x / (double)WIN_WIDTH - 1;
+	RC->ray_posx = PPOSX;
+	RC->ray_posy = PPOSY;
+	RC->ray_dirx = PDIRX + PPLANEX * RC->camera_x;
+	RC->ray_diry = PDIRY + PPLANEY * RC->camera_x;
+	RC->mapx = (int)RC->ray_posx;
+	RC->mapy = (int)RC->ray_posy;
+	RC->delta_dx = sqrt(1 + (RC->ray_diry * RC->ray_diry) /
+								(RC->ray_dirx * RC->ray_dirx));
+	RC->delta_dy = sqrt(1 + (RC->ray_dirx * RC->ray_dirx) /
+								(RC->ray_diry * RC->ray_diry));
 	RC->hit = 0;
-	if (RC->rayDirX < 0)
-		RC->stepX = -1;
+	if (RC->ray_dirx < 0)
+		RC->step_x = -1;
 	else
-		RC->stepX = 1;
-	if (RC->rayDirY < 0)
-		RC->stepY = -1;
+		RC->step_x = 1;
+	if (RC->ray_diry < 0)
+		RC->step_y = -1;
 	else
-		RC->stepY = 1;
+		RC->step_y = 1;
 }
 
 void				ft_raycasting(t_env *e)
@@ -82,19 +82,18 @@ void				ft_raycasting(t_env *e)
 	while (RC->x < WIN_WIDTH)
 	{
 		ft_init_ray(e);
-		if (RC->rayDirX < 0)
-			RC->sideDistX = (RC->rayPosX - RC->mapX) * RC->deltaDistX;
+		if (RC->ray_dirx < 0)
+			RC->side_dx = (RC->ray_posx - RC->mapx) * RC->delta_dx;
 		else
-			RC->sideDistX = (RC->mapX + 1.0 - RC->rayPosX) * RC->deltaDistX;
-		if (RC->rayDirY < 0)
-			RC->sideDistY = (RC->rayPosY - RC->mapY) * RC->deltaDistY;
+			RC->side_dx = (RC->mapx + 1.0 - RC->ray_posx) * RC->delta_dx;
+		if (RC->ray_diry < 0)
+			RC->side_dy = (RC->ray_posy - RC->mapy) * RC->delta_dy;
 		else
-			RC->sideDistY = (RC->mapY + 1.0 - RC->rayPosY) * RC->deltaDistY;
+			RC->side_dy = (RC->mapy + 1.0 - RC->ray_posy) * RC->delta_dy;
 		ft_dda(e);
 		ft_draw_buff(e);
-		e->zbuffer[RC->x] = RC->perpWallDist;
+		e->zbuffer[RC->x] = RC->perp_wall_d;
 		ft_direction_floor(e);
-		//sprite_cast(e, NBSPRITE);
 		RC->x++;
 	}
 }
