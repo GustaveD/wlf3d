@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:27:12 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/23 13:19:41 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:32:20 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ int			ft_map(t_env *e, int fd)
 		while (lines[j] != NULL)
 		{
 			e->map[i][j] = ft_atoi(lines[j]);
+			free(lines[j]);
 			j++;
 		}
 		i++;
+		free(lines);
+		free(line);
 	}
-	free(line);
-	free(lines);
 	if (err == -1)
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:10:59 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/23 13:24:44 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 19:01:23 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int		ft_create_player(t_env *e)
 		return (0);
 	if (!(e->p->plane = (t_vertex*)malloc(sizeof(t_vertex))))
 		return (0);
-	PPOSX = 22.0;
-	PPOSY = 12.0;
+	PPOSX = 20.0;
+	PPOSY = 10.0;
 	PDIRX = -1.0;
 	PDIRY = 0.0;
 	PPLANEX = 0.0;

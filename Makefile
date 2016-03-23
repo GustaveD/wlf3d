@@ -6,7 +6,7 @@
 #    By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/02 12:17:28 by jrosamon          #+#    #+#              #
-#    Updated: 2016/03/23 11:44:58 by jrosamon         ###   ########.fr        #
+#    Updated: 2016/03/23 17:51:22 by jrosamon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ FRAMEWORK = -framework OpenGL -framework AppKit
 LIBFT = libft/libft.a
 MLX = mlx/libmlx.a
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 all: $(NAME)
 

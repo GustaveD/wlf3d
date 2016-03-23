@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 11:33:46 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/23 12:14:48 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 19:01:28 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ static void		ft_load_text(t_env *e)
 	TEXT[2]->wdth = lon;
 	TEXT[2]->hght = lar;
 	TEXT[3]->data =
-		mlx_xpm_file_to_image(e->mlx, "img/text/stone4.xpm", &lar, &lon);
+		mlx_xpm_file_to_image(e->mlx, "img/text/mossy.XPM", &lar, &lon);
+	TEXT[3]->wdth = lon;
+	TEXT[3]->hght = lar;
 	TEXT[4]->data =
 		mlx_xpm_file_to_image(e->mlx, "img/text/stone5.xpm", &lar, &lon);
 	TEXT[4]->wdth = lon;
@@ -104,8 +106,8 @@ void			draw_text_2(t_env *e)
 	RC->y = (double)(RC->draw_start);
 	while (RC->y < RC->draw_end)
 	{
-		d = RC->y * 256 - WIN_HEIGHT * 128 + RC->line_hght * 128;
-		RC->tex_y = ((d * TEXT[e->idtext]->hght) / RC->line_hght) / 256;
+		d = RC->y * 2 - WIN_HEIGHT + RC->line_hght;
+		RC->tex_y = ((d * TEXT[e->idtext]->hght / 2) / RC->line_hght);
 		color = *((unsigned int*)(TEXT[e->idtext]->data +
 					(TEXT[e->idtext]->wdth * RC->tex_y * 4 + RC->tex_x * 4)));
 		img_put_pixel(e, RC->x, RC->y, color);
