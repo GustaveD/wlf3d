@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:27:12 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/23 12:10:55 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 13:19:41 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int			ft_map(t_env *e, int fd)
 		}
 		i++;
 	}
+	free(line);
+	free(lines);
 	if (err == -1)
 		return (0);
 	return (1);
