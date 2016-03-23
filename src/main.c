@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:10:59 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/23 19:01:23 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 23:39:53 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,30 @@ static int		ft_create_rc(t_env *e)
 	return (1);
 }
 
-static void		ft_init(t_env *e, int fd)
+static int		ft_create_env(t_env *e)
 {
 	e->mlx = mlx_init();
-	if (!e->mlx)
-		ft_putendl_fd("Error, failed to initiate mlx.", 2);
+	if (!(e->mlx))
+		return (0);
 	e->win = mlx_new_window(e->mlx, WIN_WIDTH, WIN_HEIGHT, "Wolf3d");
 	e->img = mlx_new_image(e->mlx, WIN_WIDTH, WIN_HEIGHT);
 	e->idata = mlx_get_data_addr(e->img, &e->bpp,
 			&e->isizeline, &e->iendian);
+	e->p = NULL;
+	TEXT = NULL;
+	RC = NULL;
+	FL = NULL;
+	e->key = NULL;
+	e->gun = NULL;
+	e->lar = 0;
+	e->lon = 0;
+	return (1);
+}
+
+static void		ft_init(t_env *e, int fd)
+{
+	if (!(ft_create_env(e)))
+		ft_error(2, e, "ERR: create env failed\n");
 	if (!(ft_create_map(e, fd)))
 		ft_error(2, e, "ERR: create map failed\n");
 	if (!(ft_create_player(e)))
@@ -78,8 +93,11 @@ int				main(int ac, char **av)
 	int		fd;
 
 	if (ac != 2)
-		ft_error(2, &e, "ERR: Need a map\n");
-	fd = open(av[ac - 1], O_RDONLY);
+		ft_error(2, NULL, "ERR: Need a map\n");
+	if ((ft_strcmp(av[ac - 1], "map/map2")) != 0)
+		ft_error(2, NULL, "ERR: Use map/map2\n");
+	if ((fd = open(av[ac - 1], O_RDONLY)) == -1 )
+		ft_error(2, NULL, "ERR: bad fd\n");
 	ft_init(&e, fd);
 	mlx_expose_hook(e.win, &expose_hook, &e);
 	mlx_loop_hook(e.mlx, &loop_hook, &e);

@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:27:12 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/23 18:32:20 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 23:39:54 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int			ft_create_map(t_env *e, int fd)
 
 	i = 0;
 	if (fd == -1)
+	{
+		printf("fini\n");
 		return (0);
+	}
 	if (!(e->map = (int**)malloc(sizeof(int*) * 24)))
 		return (0);
 	while (i < 24)

@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 16:50:48 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/23 19:02:46 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 23:17:19 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ static void		ft_free_map(t_env *e)
 
 	i = 0;
 	while (++i < 24)
-	{
 		free(e->map[i]);
-	}
-	free (e->map);
+	free(e->map);
 }
 
 static void		ft_free_player(t_env *e)
@@ -34,9 +32,8 @@ static void		ft_free_player(t_env *e)
 
 static void		ft_free_rc(t_env *e)
 {
-	free (RC);
-	FL != NULL ?
-		free(FL) : 0;
+	free(RC);
+	FL != NULL ? free(FL) : 0;
 	e->gun != NULL ? free(e->gun) : 0;
 	e->key != NULL ? free(e->key) : 0;
 }

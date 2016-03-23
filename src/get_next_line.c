@@ -6,7 +6,7 @@
 /*   By: jrosamon <jrosamon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 18:04:33 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/23 17:47:25 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 23:39:55 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int					get_next_line(int fd, char **line)
 		return (ft_err(&save));
 	if (save == NULL)
 		save = ft_strnew(BUFF_SIZE + 1);
-	while (save != NULL
-			&& ft_strchr(save, '\n') == NULL
+	ret = read(fd, buff, BUFF_SIZE);
+	while (save != NULL && ft_strchr(save, '\n') == NULL
 			&& ((ret = read(fd, buff, BUFF_SIZE)) > 0))
 	{
 		buff[ret] = '\0';

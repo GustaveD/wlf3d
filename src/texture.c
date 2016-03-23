@@ -6,7 +6,7 @@
 /*   By: jrosamon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 11:33:46 by jrosamon          #+#    #+#             */
-/*   Updated: 2016/03/23 19:01:28 by jrosamon         ###   ########.fr       */
+/*   Updated: 2016/03/23 23:20:36 by jrosamon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,33 +28,31 @@ void			init_texture(t_env *e)
 
 static void		ft_load_text(t_env *e)
 {
-	int lar;
-	int lon;
-
 	TEXT[0]->data =
-		mlx_xpm_file_to_image(e->mlx, "img/text/stone1.xpm", &lar, &lon);
-	TEXT[0]->wdth = lon;
-	TEXT[0]->hght = lar;
+		mlx_xpm_file_to_image(e->mlx, "img/text/stone1.xpm", &e->lar, &e->lon);
+	TEXT[0]->wdth = e->lon;
+	TEXT[0]->hght = e->lar;
 	TEXT[1]->data =
-		mlx_xpm_file_to_image(e->mlx, "img/text/redbrick.XPM", &lar, &lon);
-	TEXT[1]->wdth = lon;
-	TEXT[1]->hght = lar;
+		mlx_xpm_file_to_image(e->mlx, "img/text/redbrick.XPM",
+								&e->lar, &e->lon);
+	TEXT[1]->wdth = e->lon;
+	TEXT[1]->hght = e->lar;
 	TEXT[2]->data =
-		mlx_xpm_file_to_image(e->mlx, "img/text/stone3.xpm", &lar, &lon);
-	TEXT[2]->wdth = lon;
-	TEXT[2]->hght = lar;
+		mlx_xpm_file_to_image(e->mlx, "img/text/stone3.xpm", &e->lar, &e->lon);
+	TEXT[2]->wdth = e->lon;
+	TEXT[2]->hght = e->lar;
 	TEXT[3]->data =
-		mlx_xpm_file_to_image(e->mlx, "img/text/mossy.XPM", &lar, &lon);
-	TEXT[3]->wdth = lon;
-	TEXT[3]->hght = lar;
+		mlx_xpm_file_to_image(e->mlx, "img/text/mossy.XPM", &e->lar, &e->lon);
+	TEXT[3]->wdth = e->lon;
+	TEXT[3]->hght = e->lar;
 	TEXT[4]->data =
-		mlx_xpm_file_to_image(e->mlx, "img/text/stone5.xpm", &lar, &lon);
-	TEXT[4]->wdth = lon;
-	TEXT[4]->hght = lar;
+		mlx_xpm_file_to_image(e->mlx, "img/text/stone5.xpm", &e->lar, &e->lon);
+	TEXT[4]->wdth = e->lon;
+	TEXT[4]->hght = e->lar;
 	TEXT[5]->data =
-		mlx_xpm_file_to_image(e->mlx, "img/text/floor1.xpm", &lar, &lon);
-	TEXT[5]->wdth = lon;
-	TEXT[5]->hght = lar;
+		mlx_xpm_file_to_image(e->mlx, "img/text/floor1.xpm", &e->lar, &e->lon);
+	TEXT[5]->wdth = e->lon;
+	TEXT[5]->hght = e->lar;
 }
 
 int				ft_create_texture(t_env *e)
